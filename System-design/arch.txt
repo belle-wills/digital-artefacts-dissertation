@@ -1,0 +1,20 @@
+User / Webcam
+      ↓
+MediaPipe Pose Detection
+      ↓
+Pose Analysis Logic
+      ↓
+FastAPI Backend
+     ↙      ↘
+PostgreSQL    Recommendation Engine
+Database      (trained model)
+     ↘      ↙
+Frontend Dashboard / Charts / Feedback
+
+
+
+
+
+
+
+

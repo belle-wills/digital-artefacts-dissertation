@@ -1,0 +1,81 @@
+
+erDiagram
+
+    USERS {
+        int id PK
+        string email
+        string hashed_password
+        string sex
+        boolean cycle_tracking_enabled
+        string hormonal_status
+        timestamp created_at
+    }
+
+    PROFILES {
+        int id PK
+        int user_id FK
+        int age
+        float height_cm
+        float start_weight_kg
+        float goal_weight_kg
+        string activity_level
+        string goal_type
+        string experience_level
+    }
+
+    WORKOUT_SESSIONS {
+        int id PK
+        int user_id FK
+        string session_name
+        timestamp started_at
+        timestamp completed_at
+        int duration_minutes
+        float calories_burned
+        string notes
+    }
+
+    EXERCISES {
+        int id PK
+        string name
+        string category
+        string muscle_group
+        string equipment
+    }
+
+    EXERCISE_LOGS {
+        int id PK
+        int workout_session_id FK
+        int exercise_id FK
+        int sets
+        int reps
+        float weight_kg
+    }
+
+    POSE_ANALYSIS_LOGS {
+        int id PK
+        int user_id FK
+        int workout_session_id FK
+        int exercise_id FK
+        int detected_reps
+        float avg_joint_angle
+        float form_score
+        string feedback_text
+    }
+
+    LOGIN_LOGS {
+        int id PK
+        int user_id FK
+        timestamp login_time
+        boolean success
+    }
+
+    USERS ||--|| PROFILES : has
+    USERS ||--o{ WORKOUT_SESSIONS : creates
+    USERS ||--o{ LOGIN_LOGS : generates
+    USERS ||--o{ POSE_ANALYSIS_LOGS : owns
+
+    WORKOUT_SESSIONS ||--o{ EXERCISE_LOGS : contains
+    WORKOUT_SESSIONS ||--o{ POSE_ANALYSIS_LOGS : stores
+
+    EXERCISES ||--o{ EXERCISE_LOGS : references
+    EXERCISES ||--o{ POSE_ANALYSIS_LOGS : analysed_in
